@@ -9,3 +9,4 @@ variable "desired_capacity" {}
 variable "min_size" {}
 variable "bastion_cidr" {}
 variable "tags" {}
+variable "app_port" {}
