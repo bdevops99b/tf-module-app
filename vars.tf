@@ -13,5 +13,6 @@ variable "app_port" {}
 variable "listener_arn" {}
 variable "listener_priority" {}
 variable "dns_name" {}
+variable "lb_dns_name" {}
 variable "domain_name" {}
 variable "domain_id" {}
