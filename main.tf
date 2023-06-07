@@ -67,3 +67,28 @@ resource "aws_lb_target_group" "main" {
   vpc_id   = var.vpc_id
   tags = merge(var.tags, { Name = "${var.name}alb-${var.env}-tg" })
 }
+
+
+resource "aws_lb_listener_rule" "rule" {
+  listener_arn = var.listener_arn
+  priority     = var.listener_priority
+
+  action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.main.arn
+  }
+
+  condition {
+    host_header {
+      values = [local.dns_name]
+    }
+  }
+}
+
+#resource "aws_route53_record" "main" {
+#  zone_id = var.domain_id
+#  name    = local.dns_name
+#  type    = "C"
+#  ttl     = 30
+#  records = [var.dns_name]
+#}
