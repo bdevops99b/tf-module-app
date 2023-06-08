@@ -1,5 +1,5 @@
 resource "aws_iam_role" "role" {
-  name = "${var.name}-${var.env }-role"
+  name = "${var.name}-${var.env}-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -17,14 +17,16 @@ resource "aws_iam_role" "role" {
 
   tags = merge(var.tags, { Name = "${var.name}-${var.env}-role" })
 }
+
 resource "aws_iam_instance_profile" "instance_profile" {
-  name = "${var.name}-${var.env }-role"
+  name = "${var.name}-${var.env}-role"
   role = aws_iam_role.role.name
 }
 
 resource "aws_iam_role_policy" "ssm-ps-policy" {
-  name = "${var.name}-${var.env }-ssm-ps-policy"
+  name = "${var.name}-${var.env}-ssm-ps-policy"
   role = aws_iam_role.role.id
+
 
   policy = jsonencode({
     "Version" : "2012-10-17",
@@ -33,8 +35,7 @@ resource "aws_iam_role_policy" "ssm-ps-policy" {
         "Sid" : "VisualEditor0",
         "Effect" : "Allow",
         "Action" : [
-          "kms:GetParametersForImport",
-          "kms:Encrypt",
+          "kms:Decrypt",
           "ssm:GetParameterHistory",
           "ssm:GetParametersByPath",
           "ssm:GetParameters",
